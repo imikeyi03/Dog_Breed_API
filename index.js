@@ -1,7 +1,7 @@
 'use strict';
 
 function getDogImage(dogInput) {
-  fetch(`https://dog.ceo/api/breeds/image/random/${dogInput}`)
+  fetch(`https://dog.ceo/api/breed/${dogInput}/images/random`)
     .then(response => response.json())
     .then(responseJson => 
       displayResults(responseJson))
@@ -10,16 +10,21 @@ function getDogImage(dogInput) {
 
 
 function displayResults(responseJson) {
-    console.log(responseJson);
-  }
+  console.log(responseJson);
+  $('.js-search-results').html(`<img src=" ${responseJson.message}">`);
+  
+}
 
-function watchForm() {
+
+  function watchForm() {
   $('form').submit(event => {
     event.preventDefault();
-    let dogInput = $('#dog-input').val();
+    let dogInput = $('#dropDownSelect').val();
     getDogImage(dogInput);
   });
 }
+
+
 
 $(function() {
   console.log('App loaded! Waiting for submit!');
