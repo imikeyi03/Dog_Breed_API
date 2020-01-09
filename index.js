@@ -7,14 +7,19 @@ function getDogImage(dogInput) {
     .then(response => response.json())
     .then(responseJson => 
       displayResults(responseJson))
-    .catch(error => alert('Something went wrong. Try again later.'));
+    .catch(error => alert('That breed doesn\'t exist. Try again.'));
 }
 
-//Displays the breed photo to the DOM
+//Displays the breed photo to the DOM if a error code 404 isn't returned by fetch
 
 function displayResults(responseJson) {
   console.log(responseJson);
-  $('.js-search-results').html(`<img src="${responseJson.message}">`);
+  
+  if(responseJson.code == "404") {
+    alert("Not found!");
+  } else {
+    $('.js-search-results').html(`<img src="${responseJson.message}">`);
+  }
 }
 
 
